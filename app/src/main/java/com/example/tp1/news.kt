@@ -2,5 +2,6 @@ package com.example.tp1
 
 
 data class News(
-    val title: String
+    val title: String,
+    val int: Int
 )
