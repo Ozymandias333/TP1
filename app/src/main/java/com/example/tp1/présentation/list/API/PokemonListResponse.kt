@@ -2,7 +2,7 @@ package com.example.tp1.présentation.list.API
 
 import com.example.tp1.présentation.list.List.Pokemon
 
-data class PokemonResponse(
+data class PokemonListResponse(
 
     val count: Int,
     val next: String,

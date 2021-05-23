@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.R
 import com.example.tp1.présentation.list.API.PokemonAPI
-import com.example.tp1.présentation.list.API.PokemonResponse
+import com.example.tp1.présentation.list.API.PokemonListResponse
+import com.example.tp1.présentation.list.Singletons
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,19 +49,12 @@ class PokemonListFragment : Fragment() {
             adapter = this@PokemonListFragment.adapter
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val PokemonAPI: PokemonAPI = retrofit.create(PokemonAPI::class.java)
-
-        PokemonAPI.getPokemonList()?.enqueue(object : Callback<PokemonResponse> {
-            override fun onFailure(call: Call<PokemonResponse>, t: Throwable) {
+        Singletons.pokemonAPI.getPokemonList()?.enqueue(object : Callback<PokemonListResponse> {
+            override fun onFailure(call: Call<PokemonListResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
-            override fun onResponse(call: Call<PokemonResponse>, response: Response<PokemonResponse>) {
+            override fun onResponse(call: Call<PokemonListResponse>, response: Response<PokemonListResponse>) {
                 if(response.isSuccessful && response.body() != null) {
                     val pokemonResponse= response.body()!!
                     adapter.updateList(pokemonResponse.results)
