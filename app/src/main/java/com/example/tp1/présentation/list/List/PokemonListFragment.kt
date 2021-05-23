@@ -30,8 +30,6 @@ class PokemonListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val adapter = PokemonAdapter(listOf(), ::onClickPokemon)
 
-    private val viewModel: PokemonListViewModel by viewModels()
-
     private val layoutManager = LinearLayoutManager(context)
 
     override fun onCreateView(
@@ -55,7 +53,6 @@ class PokemonListFragment : Fragment() {
         viewModel.pokeList.observe(viewLifecycleOwner, Observer { list ->
             adapter.updateList(list)
         })
-
     }
 
     private fun onClickPokemon(id: Int) {
