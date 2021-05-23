@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tp1.R
@@ -23,7 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PokemonListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private val adapter = PokemonAdapter(listOf<Pokemon>())
+    private val adapter = PokemonAdapter(listOf(), ::onClickPokemon)
+
     private val layoutManager = LinearLayoutManager(context)
 
     override fun onCreateView(
@@ -38,6 +40,8 @@ class PokemonListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.pokemon_recyclerview)
+
+
 
         recyclerView.apply {
             layoutManager = this@PokemonListFragment.layoutManager
@@ -64,11 +68,9 @@ class PokemonListFragment : Fragment() {
             }
 
         })
+    }
 
-        /*val pokeList = arrayListOf<Pokemon>().apply {
-            add(Pokemon("Bulbusar"))
-            add(Pokemon("Salamèche"))
-            add(Pokemon("Carapuce"))
-        }*/
+    private fun onClickPokemon(pokemon: Pokemon) {
+        findNavController().navigate(R.id.navigateToPokemonDetailFragment)
     }
 }
